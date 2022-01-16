@@ -449,8 +449,8 @@ void TestSortingDocumentContent() {
         const Document& doc0 = found_docs[0];
         const Document& doc1 = found_docs[1];
         const Document& doc2 = found_docs[2];
-        ASSERT(doc0.relevance >= doc1.relevance);
-        ASSERT(doc1.relevance >= doc2.relevance);
+        ASSERT_HINT(doc0.relevance > doc1.relevance, "Relevance must be count as TF-IDF"s);
+        ASSERT_HINT(doc1.relevance > doc2.relevance, "Relevance must be count as TF-IDF"s);
     }
 }
 
