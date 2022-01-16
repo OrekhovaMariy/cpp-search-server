@@ -399,7 +399,7 @@ void TestMatchingDocumentContent() {
     const int doc_id = 42;
     const string content = "cat in the city"s;
     const vector<int> ratings = { 1, 2, 3 };
-        
+
 
     {
         SearchServer server;
@@ -531,7 +531,7 @@ void TestRelevanceDocumentContent() {
         const Document& doc1 = found_docs[1];
         ASSERT_EQUAL(doc0.id, 43);
         ASSERT_EQUAL(doc1.id, 42);
-        ASSERT_HINT(doc0.relevance - 0.3465735 < 1e-6, "Relevance must be count as TF-IDF"s);
+        ASSERT_HINT(abs(doc0.relevance - 0.3465735) < 1e-6, "Relevance must be count as TF-IDF"s);
         ASSERT_HINT(doc1.relevance == 0, "Relevance must be count as TF-IDF"s);
     }
 }
