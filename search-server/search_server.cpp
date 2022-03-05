@@ -3,8 +3,7 @@
 #include <string>
 #include <vector>
 #include <numeric>
-#include <iostream>
-
+#include <cmath>
 
 SearchServer::SearchServer(const std::string& stop_words_text)
     : SearchServer(SplitIntoWords(stop_words_text))  
@@ -24,8 +23,8 @@ void SearchServer::AddDocument(int document_id, const std::string& document, Doc
         word_to_document_freqs_[word][document_id] += inv_word_count;
         freq[word] += inv_word_count;
     }
-    
-    documents_.emplace(document_id, DocumentData{ ComputeAverageRating(ratings), status, freq });
+    frequencies_[document_id] = freq;
+    documents_.emplace(document_id, DocumentData{ ComputeAverageRating(ratings), status});
     document_ids_.insert(document_id);
     
 }
@@ -72,6 +71,7 @@ SearchServer::QueryWord SearchServer::ParseQueryWord(const std::string& text) co
     return { word, is_minus, IsStopWord(word) };
 }
 
+
 std::vector<Document> SearchServer::FindTopDocuments(const std::string& raw_query, DocumentStatus status) const {
 
     return FindTopDocuments(
@@ -93,24 +93,31 @@ const std::map<std::string, double>& SearchServer::GetWordFrequencies(int docume
         return map;
     }
     else {
-        return documents_.at(document_id).frequencies_;
+        return frequencies_.at(document_id);
     }
 }
 
 
 const std::set<int>::const_iterator SearchServer::begin() const {
-    return document_ids_.begin();
+    return document_ids_.cbegin();
 }
 
 const std::set<int>::const_iterator SearchServer::end() const{
-    return document_ids_.end();
+    return document_ids_.cend();
 }
 
 void SearchServer::RemoveDocument(int document_id) {
-
+    if (documents_.count(document_id) == 0)
+    {
+        return;
+    }
     document_ids_.erase(document_id);
     documents_.erase(document_id);
-
+    for (auto& doc_freq : frequencies_.at(document_id))
+    {
+        word_to_document_freqs_[doc_freq.first].erase(document_id);
+    }
+    frequencies_.erase(document_id);
 }
 
 std::tuple<std::vector<std::string>, DocumentStatus> SearchServer::MatchDocument(const std::string& raw_query,

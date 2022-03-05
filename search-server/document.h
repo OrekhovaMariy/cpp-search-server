@@ -1,5 +1,13 @@
 #pragma once
 #include <iostream>
+#include "search_server.h"
+
+enum class DocumentStatus {
+    ACTUAL,
+    IRRELEVANT,
+    BANNED,
+    REMOVED,
+};
 
 struct Document {
     Document() = default;
@@ -9,3 +17,6 @@ struct Document {
     int rating = 0;
 };
 std::ostream& operator<<(std::ostream& out, const Document& document);
+
+void PrintDocument(const Document& document);
+

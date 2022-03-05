@@ -8,12 +8,12 @@
 #include "document.h"
 #include "log_duration.h"
 
-void PrintDocument(const Document& document) {
-    std::cout << "{ "s
-        << "document_id = "s << document.id << ", "s
-        << "relevance = "s << document.relevance << ", "s
-        << "rating = "s << document.rating << " }"s << std::endl;
+std::string ReadLine() {
+    std::string s;
+    std::getline(std::cin, s);
+    return s;
 }
+
 void  PrintMatchDocumentResult(int document_id, const std::vector<std::string>& words, DocumentStatus status) {
     std::cout << "{ "s
         << "document_id = "s << document_id << ", "s
