@@ -1,14 +1,12 @@
 #include "test_example_functions.h"
-#include "log_duration.h"
 #include "read_input_functions.h"
 #include "search_server.h"
 
 #include <utility>
 #include <algorithm>
 
-
 template <typename Data>
-void Print(std::ostream& out, const Data& container)  {
+void Print(std::ostream& out, const Data& container) {
     bool i = 0;
     for (const auto& element : container) {
         if (i == 1) {
@@ -94,7 +92,7 @@ void AssertImpl(bool value, const std::string& expr_str, const std::string& file
 
 template <typename T>
 void RunTestImpl(T t, const std::string& func) {
-    /* Напишите недостающий код */
+    /* РќР°РїРёС€РёС‚Рµ РЅРµРґРѕСЃС‚Р°СЋС‰РёР№ РєРѕРґ */
     t();
     std::cerr << func << " OK" << std::endl;
 }
@@ -103,9 +101,9 @@ void RunTestImpl(T t, const std::string& func) {
 #define RUN_TEST(func) RunTestImpl((func), #func)
 
 
-// -------- Начало модульных тестов поисковой системы ----------
+// -------- РќР°С‡Р°Р»Рѕ РјРѕРґСѓР»СЊРЅС‹С… С‚РµСЃС‚РѕРІ РїРѕРёСЃРєРѕРІРѕР№ СЃРёСЃС‚РµРјС‹ ----------
 
-// Тест проверяет, что поисковая система исключает стоп-слова при добавлении документов
+// РўРµСЃС‚ РїСЂРѕРІРµСЂСЏРµС‚, С‡С‚Рѕ РїРѕРёСЃРєРѕРІР°СЏ СЃРёСЃС‚РµРјР° РёСЃРєР»СЋС‡Р°РµС‚ СЃС‚РѕРї-СЃР»РѕРІР° РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё РґРѕРєСѓРјРµРЅС‚РѕРІ
 void TestExcludeStopWordsFromAddedDocumentContent() {
     const int doc_id = 42;
     const std::string content = "cat in the city"s;
@@ -126,8 +124,8 @@ void TestExcludeStopWordsFromAddedDocumentContent() {
     }
 }
 
-// Разместите код остальных тестов здесь
-// Докуметы, содержащие минус-слова, не должны включаться в результаты поиска
+// Р Р°Р·РјРµСЃС‚РёС‚Рµ РєРѕРґ РѕСЃС‚Р°Р»СЊРЅС‹С… С‚РµСЃС‚РѕРІ Р·РґРµСЃСЊ
+// Р”РѕРєСѓРјРµС‚С‹, СЃРѕРґРµСЂР¶Р°С‰РёРµ РјРёРЅСѓСЃ-СЃР»РѕРІР°, РЅРµ РґРѕР»Р¶РЅС‹ РІРєР»СЋС‡Р°С‚СЊСЃСЏ РІ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРёСЃРєР°
 void TestExcludeMinusWordsFromAddedDocumentContent() {
     const int doc_id1 = 42;
     const std::string content1 = "cat in the city"s;
@@ -145,9 +143,9 @@ void TestExcludeMinusWordsFromAddedDocumentContent() {
 }
 
 
-// Матчинг документов. При матчинге документа по поисковому запросу должны быть
-// возвращены все слова из поискового запроса, присутствующие в документе.
-// Если есть соответствие хотя бы по одному минус-слову, должен возвращаться пустой список слов.
+// РњР°С‚С‡РёРЅРі РґРѕРєСѓРјРµРЅС‚РѕРІ. РџСЂРё РјР°С‚С‡РёРЅРіРµ РґРѕРєСѓРјРµРЅС‚Р° РїРѕ РїРѕРёСЃРєРѕРІРѕРјСѓ Р·Р°РїСЂРѕСЃСѓ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ
+// РІРѕР·РІСЂР°С‰РµРЅС‹ РІСЃРµ СЃР»РѕРІР° РёР· РїРѕРёСЃРєРѕРІРѕРіРѕ Р·Р°РїСЂРѕСЃР°, РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‰РёРµ РІ РґРѕРєСѓРјРµРЅС‚Рµ.
+// Р•СЃР»Рё РµСЃС‚СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ С…РѕС‚СЏ Р±С‹ РїРѕ РѕРґРЅРѕРјСѓ РјРёРЅСѓСЃ-СЃР»РѕРІСѓ, РґРѕР»Р¶РµРЅ РІРѕР·РІСЂР°С‰Р°С‚СЊСЃСЏ РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє СЃР»РѕРІ.
 void TestMatchingDocumentContent() {
     const int doc_id = 42;
     const std::string content = "cat in the city"s;
@@ -179,7 +177,7 @@ void TestMatchingDocumentContent() {
 }
 
 
-// Сортировка найденных документов по релевантности. Возвращаемые при поиске документов результаты должны быть отсортированы в порядке убывания релевантности.
+// РЎРѕСЂС‚РёСЂРѕРІРєР° РЅР°Р№РґРµРЅРЅС‹С… РґРѕРєСѓРјРµРЅС‚РѕРІ РїРѕ СЂРµР»РµРІР°РЅС‚РЅРѕСЃС‚Рё. Р’РѕР·РІСЂР°С‰Р°РµРјС‹Рµ РїСЂРё РїРѕРёСЃРєРµ РґРѕРєСѓРјРµРЅС‚РѕРІ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅС‹ РІ РїРѕСЂСЏРґРєРµ СѓР±С‹РІР°РЅРёСЏ СЂРµР»РµРІР°РЅС‚РЅРѕСЃС‚Рё.
 void TestSortingDocumentContent() {
     const int doc_id1 = 42;
     const std::string content1 = "white cat and fashionable collar"s;
@@ -207,7 +205,7 @@ void TestSortingDocumentContent() {
     }
 }
 
-// Рейтинг добавленного документа равен среднему арифметическому оценок документа
+// Р РµР№С‚РёРЅРі РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ РґРѕРєСѓРјРµРЅС‚Р° СЂР°РІРµРЅ СЃСЂРµРґРЅРµРјСѓ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРѕРјСѓ РѕС†РµРЅРѕРє РґРѕРєСѓРјРµРЅС‚Р°
 void TestAvarageRatingDocumentContent() {
 
     {
@@ -228,14 +226,14 @@ void TestAvarageRatingDocumentContent() {
 
     {
         SearchServer server("and"s);
-        server.AddDocument(42, "cat in the city"s, DocumentStatus::ACTUAL, {0});
+        server.AddDocument(42, "cat in the city"s, DocumentStatus::ACTUAL, { 0 });
         const auto found_docs = server.FindTopDocuments("in"s);
         const Document& doc0 = found_docs[0];
         ASSERT_EQUAL(doc0.rating, 0);
     }
 }
 
-// Фильтрация результатов поиска с использованием предиката
+// Р¤РёР»СЊС‚СЂР°С†РёСЏ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїРѕРёСЃРєР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РїСЂРµРґРёРєР°С‚Р°
 void TestPredicateDocumentContent() {
     const int doc_id1 = 42;
     const std::string content1 = "cat in the city"s;
@@ -255,7 +253,7 @@ void TestPredicateDocumentContent() {
     }
 }
 
-// Поиск документов, имеющих заданный статус
+// РџРѕРёСЃРє РґРѕРєСѓРјРµРЅС‚РѕРІ, РёРјРµСЋС‰РёС… Р·Р°РґР°РЅРЅС‹Р№ СЃС‚Р°С‚СѓСЃ
 void TestRescueStatusDocumentContent() {
 
     {
@@ -279,7 +277,7 @@ void TestRescueStatusDocumentContent() {
     }
 }
 
-// Корректное вычисление релевантности найденных документов
+// РљРѕСЂСЂРµРєС‚РЅРѕРµ РІС‹С‡РёСЃР»РµРЅРёРµ СЂРµР»РµРІР°РЅС‚РЅРѕСЃС‚Рё РЅР°Р№РґРµРЅРЅС‹С… РґРѕРєСѓРјРµРЅС‚РѕРІ
 void TestRelevanceDocumentContent() {
 
     {
@@ -298,10 +296,10 @@ void TestRelevanceDocumentContent() {
 }
 
 
-// Функция TestSearchServer является точкой входа для запуска тестов
+// Р¤СѓРЅРєС†РёСЏ TestSearchServer СЏРІР»СЏРµС‚СЃСЏ С‚РѕС‡РєРѕР№ РІС…РѕРґР° РґР»СЏ Р·Р°РїСѓСЃРєР° С‚РµСЃС‚РѕРІ
 void TestSearchServer() {
     RUN_TEST(TestExcludeStopWordsFromAddedDocumentContent);
-    // Не забудьте вызывать остальные тесты здесь    
+    // РќРµ Р·Р°Р±СѓРґСЊС‚Рµ РІС‹Р·С‹РІР°С‚СЊ РѕСЃС‚Р°Р»СЊРЅС‹Рµ С‚РµСЃС‚С‹ Р·РґРµСЃСЊ    
 
 
     RUN_TEST(TestExcludeMinusWordsFromAddedDocumentContent);
