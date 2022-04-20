@@ -218,51 +218,6 @@ std::vector<Document> SearchServer::FindAllDocuments(const ExecutionPolicy& poli
     }
 }
 
-//template <typename DocumentPredicate>
-//std::vector<Document> SearchServer::FindAllDocuments(std::execution::parallel_policy, const Query& query,
-//    DocumentPredicate document_predicate) const {
-//
-//    ConcurrentMap<int, double> document_to_relevance(document_ids_.size());
-//
-//    std::for_each(std::execution::par,
-//        query.plus_words.begin(), query.plus_words.end(),
-//        [this, &document_to_relevance, &document_predicate](const std::string_view word) {
-//            
-//            if (word_to_document_freqs_.count(word) > 0) {
-//                
-//                    const double inverse_document_freq = ComputeWordInverseDocumentFreq(word);
-//                    for (const auto& [document_id, term_freq] : word_to_document_freqs_.at(word)) {
-//                        const auto& document_data = documents_.at(document_id);
-//                        if (document_predicate(document_id, document_data.status, document_data.rating)) {
-//                            document_to_relevance[document_id].ref_to_value += term_freq * inverse_document_freq;
-//                        
-//                    }
-//                }
-//            }
-//        });
-//
-//    auto document_to_relevance_res = document_to_relevance.BuildOrdinaryMap();
-//    for (std::string_view word : query.minus_words) {
-//        
-//        if (word_to_document_freqs_.count(word) > 0) {
-//        
-//            for (const auto [document_id, _] : word_to_document_freqs_.at(word)) {
-//                document_to_relevance_res.erase(document_id);
-//
-//            }
-//        }
-//    }
-//    
-//    std::vector<Document> matched_documents(document_to_relevance_res.size());
-//    
-//    for (const auto [document_id, relevance] : document_to_relevance_res) {
-//        
-//        matched_documents.emplace_back(std::move(document_id), std::move(relevance), std::move(documents_.at(document_id).rating));
-//    }
-//    return matched_documents;
-//
-//}
-
 template <typename DocumentPredicate>
 std::vector<Document> SearchServer::FindAllDocuments(const Query& query,
     DocumentPredicate document_predicate) const {
