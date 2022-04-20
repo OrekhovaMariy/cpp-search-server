@@ -2,6 +2,7 @@
 #include <string>
 #include <stdexcept>
 #include <vector>
+
 #include "search_server.h"
 #include "document.h"
 
@@ -23,4 +24,15 @@ void PrintDocument(const Document& document) {
         << "document_id = "s << document.id << ", "s
         << "relevance = "s << document.relevance << ", "s
         << "rating = "s << document.rating << " }"s << std::endl;
+}
+
+void  PrintMatchDocumentResult(int document_id, const std::vector<std::string_view> words, DocumentStatus status) {
+    std::cout << "{ "s
+        << "document_id = "s << document_id << ", "s
+        << "status = "s << static_cast<int>(status) << ", "s
+        << "words ="s;
+    for (std::string_view word : words) {
+        std::cout << ' ' << word;
+    }
+    std::cout << "}"s << std::endl;
 }
