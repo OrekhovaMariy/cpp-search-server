@@ -1,11 +1,9 @@
 #include <iostream>
-#include <stdexcept>
 #include <string>
-#include <vector>
 
 #include "read_input_functions.h"
-#include "search_server.h"
-#include "document.h"
+#include "request_queue.h"
+#include "string_processing.h"
 
 std::string ReadLine() {
     std::string s;
@@ -13,49 +11,9 @@ std::string ReadLine() {
     return s;
 }
 
-void  PrintMatchDocumentResult(int document_id, const std::vector<std::string_view> words, DocumentStatus status) {
-    std::cout << "{ "s
-        << "document_id = "s << document_id << ", "s
-        << "status = "s << static_cast<int>(status) << ", "s
-        << "words ="s;
-    for (std::string_view word : words) {
-        std::cout << ' ' << word;
-    }
-    std::cout << "}"s << std::endl;
-}
-
-void AddDocument(SearchServer& search_server, int document_id, std::string_view document,
-    DocumentStatus status, const std::vector<int>& ratings) {
-    try {
-        search_server.AddDocument(document_id, document, status, ratings);
-    }
-    catch (const std::exception& e) {
-        std::cout << "Error in adding document "s << document_id << ": "s << e.what() << std::endl;
-    }
-}
-
-void FindTopDocuments(const SearchServer& search_server, std::string_view raw_query) {
-    std::cout << "Results for request: "s << raw_query << std::endl;
-    //LOG_DURATION_STREAM("Operation time: ", std::cout);
-    try {
-        for (const Document& document : search_server.FindTopDocuments(raw_query)) {
-            PrintDocument(document);
-        }
-    }
-    catch (const std::exception& e) {
-        std::cout << "Error is seaching: "s << e.what() << std::endl;
-    }
-}
-
-void MatchDocuments(const SearchServer& search_server, std::string_view query) {
-    try {
-        std::cout << "Matching for request: "s << query << std::endl;
-        for (const int document_id : search_server) {
-            const auto [document, status] = search_server.MatchDocument(query, document_id);
-            PrintMatchDocumentResult(document_id, document, status);
-        }
-    }
-    catch (const std::exception& e) {
-        std::cout << "Error in matchig request "s << query << ": "s << e.what() << std::endl;
-    }
+int ReadLineWithNumber() {
+    int result;
+    std::cin >> result;
+    ReadLine();
+    return result;
 }
