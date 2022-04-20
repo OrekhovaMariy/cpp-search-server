@@ -8,14 +8,6 @@
 #include "read_input_functions.h"
 #include "string_processing.h"
 
-
-int ReadLineWithNumber() {
-    int result;
-    std::cin >> result;
-    ReadLine();
-    return result;
-}
-
 std::vector<std::string_view> SplitIntoWords(std::string_view str) {
     std::vector<std::string_view> result;
     while (true) {
