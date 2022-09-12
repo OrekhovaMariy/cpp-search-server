@@ -133,7 +133,6 @@ void AssertImpl(bool value, const std::string& expr_str, const std::string& file
 
 template <typename T>
 void RunTestImpl(T t, const std::string& func) {
-    /* Напишите недостающий код */
     t();
     std::cerr << func << " OK" << std::endl;
 }
@@ -340,9 +339,6 @@ void TestRelevanceDocumentContent() {
 // Функция TestSearchServer является точкой входа для запуска тестов
 void TestSearchServer() {
     RUN_TEST(TestExcludeStopWordsFromAddedDocumentContent);
-    // Не забудьте вызывать остальные тесты здесь    
-
-
     RUN_TEST(TestExcludeMinusWordsFromAddedDocumentContent);
     RUN_TEST(TestMatchingDocumentContent);
     RUN_TEST(TestSortingDocumentContent);
