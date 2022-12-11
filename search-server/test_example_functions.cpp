@@ -164,7 +164,6 @@ void TestExcludeStopWordsFromAddedDocumentContent() {
     }
 }
 
-// Разместите код остальных тестов здесь
 // Докуметы, содержащие минус-слова, не должны включаться в результаты поиска
 void TestExcludeMinusWordsFromAddedDocumentContent() {
     const int doc_id1 = 42;
